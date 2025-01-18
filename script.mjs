@@ -11,6 +11,15 @@ function getRoot(req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send('Hello World').end();
 }
 
+server.get(`/tmp/poem`,(req, res) => {
+    res.send(`
+    Roser er røde,<br>
+    fioler er er blå,<br>
+    jeg er på ferie,<br>
+    det er ikke du...`
+    );
+});
+
 server.get("/", getRoot);
 
 server.listen(server.get('port'), function () {
