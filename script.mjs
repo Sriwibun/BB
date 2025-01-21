@@ -20,7 +20,7 @@ server.get(`/tmp/poem`,(req, res,) => {
     ).end();
 });
 
-//poem
+//quotes
 const quotes = [
     `To be or not to be...`,
     `Dont think, just do it...`,	
@@ -50,6 +50,9 @@ server.get('/tmp/sum/:a/:b', (req, res) => {
     }
 });
 
+server.post(`/temp/deck`, function (req, res) {
+    res.send(`POST request to the homepage`)
+});
 
 server.get("/", getRoot);
 
