@@ -2,6 +2,7 @@ import express from 'express';
 import HTTP_CODES from './utils/httpCodes.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cardRouter from './CardRoute.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,8 +11,10 @@ const server = express();
 const port = process.env.PORT || 8000;
 
 server.set('port', port);
-server.use(express.json());
+server.use(express.json()); 
 server.use(express.static(path.join(__dirname, 'public')));
+
+server.use(cardRouter);
 
 // Function to send a default "Hello World" response
 function getRoot(req, res, next) {

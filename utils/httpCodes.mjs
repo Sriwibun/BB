@@ -7,7 +7,10 @@ const HTTP_CODES = {
     },
     CLIENT_ERROR: {
         NOT_FOUND: 404
+    },
+    SERVER_ERROR: {
+        INTERNAL_ERROR: 500
     }
-}
+};
 
 export default HTTP_CODES;
