@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import HTTP_CODES from './utils/httpCodes.mjs';
 
 const cardRouter = Router();
@@ -7,6 +6,7 @@ const cardRouter = Router();
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
 const decks = {};
+let deckCounter =1;
 
 // Generate a deck of cards
 function generateCardDeck() {
@@ -27,13 +27,13 @@ function generateCardDeck() {
 // Create a new deck
 cardRouter.post('/tmp/deck', (req, res) => {
     try {
-        const deck_id = uuidv4();
+        const deck_id = `deck_${deckCounter++}`;
         const newDeck = generateCardDeck();
         decks[deck_id] = newDeck;
         res.status(HTTP_CODES.SUCCESS.CREATED).json({ deck_id });
     } catch (error) {
         console.error('Error creating deck:', error);
-        res.status(HTTP_CODES.SERVER_ERROR.INTERNAL_ERROR).send('Server error');
+        res.status(500).json({error: 'Server error', message: error.message });
     }
 });
 
