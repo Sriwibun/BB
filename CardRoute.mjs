@@ -24,6 +24,28 @@ function generateCardDeck() {
     return deck;
 }
 
+
+// Shuffle a deck endpoint
+cardRouter.patch('/tmp/deck/:deck_id/shuffle', (req, res) => {
+    const { deck_id } = req.params;
+    const deck = decks[deck_id];
+    if (deck) {
+        shuffleDeck(deck);
+        res.status(HTTP_CODES.SUCCESS.OK).json({ message: `Deck ${deck_id} shuffled`, deck });
+    } else {
+        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).json({ error: 'Deck not found' });
+    }
+});
+
+// Function for shuffle the deck
+const shuffleDeck = (deck) => {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+};
+
 // Create a new deck
 cardRouter.post('/tmp/deck', (req, res) => {
     try {
