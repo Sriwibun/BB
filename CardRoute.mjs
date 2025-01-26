@@ -23,7 +23,27 @@ function generateCardDeck() {
     }
     return deck;
 }
+// Create a new deck
+cardRouter.post('/tmp/deck', (req, res) => {
+    try {
+        const deck_id = `deck_${deckCounter++}`;
+        const newDeck = generateCardDeck();
+        decks[deck_id] = newDeck;
+        res.status(HTTP_CODES.SUCCESS.CREATED).json({ deck_id });
+    } catch (error) {
+        console.error('Error creating deck:', error);
+        res.status(500).json({error: 'Server error', message: error.message });
+    }
+});
 
+// Function for shuffle the deck
+const shuffleDeck = (deck) => {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+};
 
 // Shuffle a deck endpoint
 cardRouter.patch('/tmp/deck/:deck_id/shuffle', (req, res) => {
@@ -37,27 +57,7 @@ cardRouter.patch('/tmp/deck/:deck_id/shuffle', (req, res) => {
     }
 });
 
-// Function for shuffle the deck
-const shuffleDeck = (deck) => {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-    return deck;
-};
 
-// Create a new deck
-cardRouter.post('/tmp/deck', (req, res) => {
-    try {
-        const deck_id = `deck_${deckCounter++}`;
-        const newDeck = generateCardDeck();
-        decks[deck_id] = newDeck;
-        res.status(HTTP_CODES.SUCCESS.CREATED).json({ deck_id });
-    } catch (error) {
-        console.error('Error creating deck:', error);
-        res.status(500).json({error: 'Server error', message: error.message });
-    }
-});
 
 // Get all decks
 cardRouter.get('/tmp/deck', (req, res) => {

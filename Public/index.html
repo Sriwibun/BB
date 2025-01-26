@@ -40,7 +40,7 @@
             fetch(`/tmp/deck/${deckId}/shuffle`, { method: 'PATCH' })
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('output').innerText = `Shuffled deck with ID: ${data.deck_id}`;
+                    document.getElementById('output').innerText = data.message;
                 })
                 .catch(error => console.error('Error:', error));
         });
