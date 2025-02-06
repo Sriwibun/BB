@@ -1,6 +1,9 @@
 import express from 'express';
+import log from './log.mjs';
 
 const abTestRouter = express.Router();
+
+abTestRouter.use(log);
 
 abTestRouter.get('/tmp/abTest', (req, res) => {
     const testGroup = Math.random() > 0.5 ? 'A' : 'B';
