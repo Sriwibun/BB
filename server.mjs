@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cardRouter from './CardRoute.mjs';
 import log from './modules/log.mjs';
-import abTest from './modules/AB_testing';
+import abTestRouter from './modules/AB_testing.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +14,7 @@ const port = process.env.PORT || 8000;
 
 server.set('port', port);
 server.use(express.json()); 
+server.use(abTestRouter);
 server.use(express.static(path.join(__dirname, 'public')));
 server.use(cardRouter);
 server.use(log);
@@ -64,17 +65,6 @@ server.get('/tmp/sum/:a/:b', (req, res) => {
         res.status(HTTP_CODES.SUCCESS.OK).send(`The sum of ${a} + ${b} = ${sum}.`).end();
     }
 });
-
-//Middelware for A/B testing
-server.use(abTest);
-
-server.get('/tmp/abtest', (req, res) => {
-    if (req.abGroup === 'A') {
-        res.json({ message: 'You are in group A!' });
-    } else {
-        res.json({ message: 'You are in group B!' });
-    }});
-
 
 // Default route to serve index.html
 server.get('/', (req, res) => {
