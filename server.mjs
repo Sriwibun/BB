@@ -13,9 +13,9 @@ const server = express();
 const port = process.env.PORT || 8000;
 
 server.set('port', port);
+server.use(express.static(path.join(__dirname, 'public')));
 server.use(express.json()); 
 server.use(abTestRouter);
-server.use(express.static(path.join(__dirname, 'public')));
 server.use(cardRouter);
 server.use(log);
 
