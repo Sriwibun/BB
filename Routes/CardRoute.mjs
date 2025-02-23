@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import HTTP_CODES from './utils/httpCodes.mjs';
+import HTTP_CODES from '../utils/httpCodes.mjs';
 
 const cardRouter = Router();
 
