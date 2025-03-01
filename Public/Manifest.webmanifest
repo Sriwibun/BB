@@ -1,0 +1,22 @@
+{
+    "name" : "Science app",
+    "short_name" : "Scapp",
+    "start_url" : "/",
+    "display" : "standalone",
+    "background_color" : "#f0f0f0",
+    "theme_color" : "#333333",
+    "icons" : [
+        {
+            "src" : "/i",
+            "sizes" : "128x128",
+            "type" : "image/png"
+        },
+        {
+            "src" : "/",
+            "sizes" : "512x512",
+            "type" : "image/png"
+        }
+   
+    ]
+
+}
