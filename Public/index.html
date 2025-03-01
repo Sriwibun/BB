@@ -10,41 +10,10 @@
 
 <body>
     <h1>Hello Class</h1>
-    <h1>Checking if I do anything</h1>
-    <button id="createDeck">Create new deck</button>
-    <button id="getDecks">Get decks</button>
-    <button id="shuffleDeck">Shuffle deck</button>
-    <input type="text" id ="deckIdInput" placeholder="Enter deck ID to shuffle">
     <div id="output"></div>
 
     <script>
-    document.getElementById('createDeck').addEventListener('click', () => {
-            fetch('/tmp/deck', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = `Created deck with ID: ${data.deck_id}`;
-                })
-                .catch(error => console.error('Error:', error));
-        });
 
-        document.getElementById('getDecks').addEventListener('click', () => {
-            fetch('/tmp/deck')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = JSON.stringify(data, null, 2);
-                })
-                .catch(error => console.error('Error:', error));
-        });
-
-        document.getElementById('shuffleDeck').addEventListener('click', () => {
-            const deckId = document.getElementById('deckIdInput').value;
-            fetch(`/tmp/deck/${deckId}/shuffle`, { method: 'PATCH' })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('output').innerText = data.message;
-                })
-                .catch(error => console.error('Error:', error));
-        });
     </script>
 
 </body> 
