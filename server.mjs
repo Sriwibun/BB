@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import log from './modules/log.mjs';
+import treeRouter from './Routes/treeaPI.mjs';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,6 +15,7 @@ server.set('port', port);
 server.use(express.static('public'));
 server.use(express.json()); 
 server.use(log);
+server.use('/tree', treeRouter);
 
 
 
