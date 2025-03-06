@@ -13,7 +13,6 @@ async function navigateTo(event) {
     document.getElementById("app").innerHTML = content;
 }
 
-window.ompopstate = navigateTo;
+window.onpopstate = navigateTo;
 document.addEventListener("DOMContentLoaded", navigateTo);
 export { navigateTo };
-// Compare this snippet from Public/templates/home.html:    
