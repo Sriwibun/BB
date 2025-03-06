@@ -2,8 +2,8 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import log from './modules/log.mjs';
-import treeRouter from './Routes/treeaPI.mjs';
 import workoutRouter from './Routes/workoutAPI.mjs';
+import treeRouter from './Routes/treeaPI.mjs';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,7 +16,7 @@ server.listen(port, () => console.log(`Server running on port ${port}`));
 
 server.set('port', port);
 server.use(express.json()); 
-server.use("/api/workouts", workoutRouter);
+server.use(workoutRouter);
 server.use(log);
 server.use('/tree', treeRouter);
 server.use(express.static('public'));
