@@ -6,13 +6,13 @@ const routes = {
 
 async function navigateTo(event) {
     if (event) event.preventDefault();
-    const path = window.location.pathname;
-    const route = routes[path] || routes ["/"];
+    history.pushState({}, "", path);
 
-    const content = await fetch(route).then(res => res.text());
+    const template = routes[path] || routes["/"];
+    const content = await fetch(template).then(res => res.text());
     document.getElementById("app").innerHTML = content;
 }
 
-window.onpopstate = navigateTo;
-document.addEventListener("DOMContentLoaded", navigateTo);
+window.onpopstate = () => navigateTo(null, window.location.pathname);
+document.addEventListener("DOMContentLoaded", () => navigateTo(null, window.location.pathname));
 export { navigateTo };
