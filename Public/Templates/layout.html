@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wourkout Diary</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <navbar>
+        <a href="/" onclick="navigateTo(event, '/')">Home</a>
+        <a href="/add" onclick="navigateTo(event, '/add')">Add Workout</a>
+        <a href="/remove" onclick="navigateTo(event, '/remove')">Remove Workout</a>
+    </navbar>
+    
+    <div id="app">
+        <h2>Listing workouts...</h2>
+    </div>
+
+    <script src="/routes.js"></script>
+
+</body>
+</html>
