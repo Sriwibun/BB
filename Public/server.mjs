@@ -1,9 +1,9 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import log from './modules/log.mjs';
-import workoutRouter from './Routes/workoutAPI.mjs';
-import treeRouter from './Routes/treeaPI.mjs';
+import log from '../modules/log.mjs';
+import workoutRouter from '../Routes/workoutAPI.mjs';
+import treeRouter from '../Routes/treeaPI.mjs';
 
 
 const __filename = fileURLToPath(import.meta.url);
