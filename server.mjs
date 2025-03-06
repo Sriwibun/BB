@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import log from './modules/log.mjs';
 import treeRouter from './Routes/treeaPI.mjs';
+import workoutRouter from './Routes/workoutAPI.mjs';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -11,12 +12,14 @@ const __dirname = path.dirname(__filename);
 const server = express();
 const port = process.env.PORT || 8000;
 
+server.listen(port, () => console.log(`Server running on port ${port}`));
+
 server.set('port', port);
-server.use(express.static('public'));
 server.use(express.json()); 
+server.use("/api/workouts", workoutRouter);
 server.use(log);
 server.use('/tree', treeRouter);
-
+server.use(express.static('public'));
 
 
 
