@@ -2,13 +2,12 @@ import express from "express";
 import { Tree, Node, saveTree, inflateTree } from "../data/tree.mjs";
 
 const treeRouter = express.Router();
-const tree = Tree(Node("Dyrehjem"));
+const tree = Tree(Node("workouts"));
 
 treeRouter.use(express.json());
 
 tree.root.connections.push(
-    Node("Hund", Node("Labrador"), Node("Golden Retriever")),
-    Node("Katt", Node("Siamese"), Node("Persian"))
+
 );
 
 treeRouter.get("/", (req, res, next) => {
@@ -46,13 +45,6 @@ treeRouter.post("/load", (req, res) => {
 });
 
 
-const myTree = new Tree(Node("Dyrehjem"));
-myTree.addNode("Dyrehjem", "Hund");
-myTree.addNode("Dyrehjem", "Katt");
-myTree.addNode("Hund", "Labrador");
-myTree.addNode("Katt","Siamese");
 
-console.log(myTree.findNode("Hund"));
-console.log(myTree.findNode("Katt"));
 
 export default treeRouter;
