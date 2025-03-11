@@ -5,6 +5,7 @@ workoutRouter.use(express.json());
 
 let workouts = [
  { 
+    id: "1",
     name: "Full Body Workout",
     exercises: [
         { name: "Squats", sets: 3, reps: 15 },
@@ -13,6 +14,7 @@ let workouts = [
             ]
         },
         {
+            id: "2",
             name: "Cardio Workout",
             exercises: [
                 { name: "Running", distance: "5km" },
@@ -20,6 +22,7 @@ let workouts = [
             ]
         },
         {
+            id: "3",
             name: "Upper Body Workout",
             exercises: [
                 { name: "Bench Press", sets: 3, reps: 10 },
@@ -45,7 +48,7 @@ workoutRouter.post("/api/workouts", (req, res) => {
 
 workoutRouter.delete("/api/workouts/:id", (req, res) => {
     const { id } = req.params;
-    workouts = workouts.filter(workout => workout.id !== parseInt(id));
+    workouts = workouts.filter(workout => workout.id !== id);
     res.status(204).send();
 });
 

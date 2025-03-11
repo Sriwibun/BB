@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Tracker</title>
     <script>
-        window.location.href = "/Public/Templates/layout.html";
+        async function loadTemplate() {
+            try {
+                const response = await fetch("../Templates/home.html");
+                const html = await response.text();
+                document.body.innerHTML = html;
+                const script = document.createElement('script');
+                script.src = '/Views/home.js';
+                document.body.appendChild(script);
+            } catch (error) {
+                console.error("Failed to load layout: ", error);
+            }
+        }
+
+        loadTemplate();
     </script>
 </head>
 <body></body>

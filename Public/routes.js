@@ -4,15 +4,19 @@ const routes = {
     "/remove":"/public/templates/remove.html",
 };
 
-async function navigateTo(event) {
-    if (event) event.preventDefault();
+async function navigateTo(path) {
     history.pushState({}, "", path);
 
-    const template = routes[path] || routes["/"];
-    const content = await fetch(template).then(res => res.text());
-    document.getElementById("app").innerHTML = content;
+    const response = await fetch(routes[path]);
+    const html = await response.text();
+
+    document.getElementById("app").innerHTML = html;
 }
 
-window.onpopstate = () => navigateTo(null, window.location.pathname);
-document.addEventListener("DOMContentLoaded", () => navigateTo(null, window.location.pathname));
-export { navigateTo };
+window.onpopstate = () => {
+    navigateTo(window.location.pathname);
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    navigateTo(window.location.pathname);
+});
