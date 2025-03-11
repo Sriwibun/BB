@@ -1,11 +1,12 @@
 {
+    "name": "my-node-app",
+    "version": "1.0.0",
+    "description": "A simple Node.js application",
+    "main": "server.mjs",
     "scripts": {
-        "start": "node server.mjs",
-        "dev": "nodemon server.mjs",
-        "local": "node --env-file=.env init/init.mjs"
+      "start": "node server.mjs"
     },
     "dependencies": {
-        "express": "^4.21.2",
-        "nodemon": "^3.1.9"
+      "express": "^4.17.1"
     }
-}
+  }
