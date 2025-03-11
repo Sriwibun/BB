@@ -4,61 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Tracker</title>
-    <link href="CSS/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 
-    <nav>
-        <button onclick="navigateTo(event, '/home.html')">Home</button>
-        <button onclick="navigateTo(event, '/add.html')">Add Workout</button>
-        <button onclick="navigateTo(event, '/remove.html')">Remove Workout</button>
-    </nav>
+    <navbar>
+        <button href="/home" onclick="navigateTo(event, '/home.html')">Home</button>
+        <button href="/add" onclick="navigateTo(event, '/add.html')">Add Workout</button>
+        <button href="/remove" onclick="navigateTo(event, '/remove.html')">Remove Workout</button>
+    </navbar>
     
     <div id="app">
         <h2>Listing workouts...</h2>
     </div>
 
-    <script type="module" src="/Public/routes.js"></script>
-    <script src="/home.js"></script>
+    <script src="/routes.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('/api/workouts');
-                const workouts = await response.json();
-                const app = document.getElementById('app');
-                app.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/workouts')
+                .then(response => response.json())
+                .then(workouts => {
+                    const app = document.getElementById('app');
+                    app.innerHTML = '';
 
-                const templateResponse = await fetch('/Templates/workout-card.html');
-                const template = await templateResponse.text();
+                    fetch('/Templates/workout-card.html')
+                        .then(response => response.text())
+                        .then(templateText => {
+                            const template = document.createElement('template');
+                            template.innerHTML = templateText.trim();
 
-                workouts.forEach(workout => {
-                    const templateElement = document.createElement('template');
-                    templateElement.innerHTML = template;
-                    const workoutCard = templateElement.content.firstElementChild.cloneNode(true);
+                            workouts.forEach(workout => {
+                                const workoutCard = template.content.cloneNode(true);
 
-                    const workoutName = workoutCard.querySelector('.workout-name');
-                    workoutName.textContent = workout.name;
+                                const workoutName = workoutCard.querySelector('.workout-name');
+                                workoutName.textContent = workout.name;
 
-                    const exerciseList = workoutCard.querySelector('.exercise-list');
-                    workout.exercises.forEach(exercise => {
-                        const exerciseItem = document.createElement('li');
-                        exerciseItem.textContent = `${exercise.name} - ${exercise.sets ? `${exercise.sets} sets of ${exercise.reps} reps` : `${exercise.distance || exercise.duration}`}`;
-                        exerciseList.appendChild(exerciseItem);
-                    });
+                                const exerciseList = workoutCard.querySelector('.exercise-list');
+                                workout.exercises.forEach(exercise => {
+                                    const exerciseItem = document.createElement('li');
+                                    exerciseItem.textContent = `${exercise.name} - ${exercise.sets ? `${exercise.sets} sets of ${exercise.reps} reps` : `${exercise.distance || exercise.duration}`}`;
+                                    exerciseList.appendChild(exerciseItem);
+                                });
 
-                    app.appendChild(workoutCard);
+                                app.appendChild(workoutCard);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching workout card template:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error fetching workouts:', error);
                 });
-            } catch (error) {
-                console.error('Error fetching workouts', error);
-            }
-
         });
 
         function navigateTo(event, path) {
             event.preventDefault();
             window.location.href = path;
         }
-
     </script>
 
 </body>

@@ -5,7 +5,6 @@ import log from './modules/log.mjs';
 import workoutRouter from './Routes/workoutAPI.mjs';
 import treeRouter from './Routes/treeaPI.mjs';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,35 +12,34 @@ const server = express();
 const port = process.env.PORT || 8000;
 
 server.set('port', port);
-server.use(express.json()); 
-
+server.use(express.json());
+server.use(log);
 server.use('/tree', treeRouter);
+server.use('/workouts', workoutRouter);
 server.use(express.static(path.join(__dirname, 'public')));
 
-server.use('/api/workouts', workoutRouter);
-server.use('/api/tree', treeRouter);
-
-server.use(log);
-
-// Default route to views
 server.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "Public", 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 server.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', "Templates", 'home.html'));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'home.html'));
 });
+
 server.get('/add', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', "Templates", 'add.html'));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'add.html'));
 });
+
 server.get('/remove', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', "Templates", 'remove.html'));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'remove.html'));
 });
+
 server.get('/layout', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public', "Templates", 'layout.html'));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'layout.html'));
 });
 
 server.use((req, res) => {
-    res.status(404).send ("Page not found");
+    res.status(404).send("Page not found");
 });
 
 // Start the server
