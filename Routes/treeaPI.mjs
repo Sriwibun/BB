@@ -1,13 +1,13 @@
 import express from "express";
-import { Tree, Node, saveTree, inflateTree } from "../data/tree.mjs";
+import { WorkoutTree, Node, saveTree, inflateTree } from "../data/tree.mjs";
 
 const treeRouter = express.Router();
-const tree = Tree(Node("workouts"));
+const tree = new WorkoutTree();
 
 treeRouter.use(express.json());
 
 tree.root.connections.push(
-
+    new Node("1", new Node ("Upper Body"), new Node ("Push ups"))
 );
 
 treeRouter.get("/", (req, res, next) => {
@@ -17,11 +17,11 @@ treeRouter.get("/", (req, res, next) => {
 treeRouter.post("/add", (req, res, next) => {
     const { parentName, childName } = req.body;
 
-    const parentNode = tree.findNode(parentName);
+    const parentNode = tree.getWorkout(parentName);
     if (!parentNode) {
         return res.status(404).send("Parent not found");
     }
-    parentNode.addChild(Node(childName));
+   tree.addWorkout(parentNode.id, childName, { name: childName });
     res.json({ message: `Added ${childName} to ${parentName}` });
 });
 

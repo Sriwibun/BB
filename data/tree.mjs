@@ -1,57 +1,66 @@
-const Node = function (data, ...connections) {
-    return {
-        data,
-        connections: [...connections],
-        addChild(child) {
-            this.connections.push(child);
-        },
-        removeChild(childName) {
-            this.connections = this.connections.filter(child => child.data !== childName);
-        }
-    };
-};
+class Node {
+    constructor(name) {
+        this.name = name;
+        this.connections = [];
+    }
 
-const Tree = function (root) {
-    return {
-        root,
-
-        findNode(name, currentNode = root) {
-            if (currentNode.data === name)
-                return currentNode;
-
-            for (let child of currentNode.connections) {
-                const found = this.findNode(name, child);
-                if (found) return found;
-            }
-            return null;
-        },
-
-        addNode(parentName, childName) {
-            const parentNode = this.findNode(parentName);
-            if (parentNode) {
-                parentNode.addChild(Node(childName));
-                return parentNode;
-            }
-            return false;
-        },
-
-        removeNode(name, currentNode = root) {
-            if (!currentNode) return false;
-            currentNode.connections = currentNode.connections.filter(child => child.data !== name);
-            for (let child of currentNode.connections) {
-                this.removeNode(name, child);
-            }
-            return true;
-        }
-    };
-};
-
-export function saveTree(tree) {
-    return JSON.stringify(tree, null, 3);
+    addChild(node) {
+        this.connections.push(node);
+    }
 }
 
-export function inflateTree(data) {
-    return JSON.parse(data);
+class WorkoutTree {
+    constructor() {
+        this.root = new Node("Root");
+    }
+
+    getWorkout(name) {
+        return this.findNode(this.root, name);
+    }
+
+    addWorkout(parentId, childName) {
+        const parentNode = this.findNodeById(this.root, parentId);
+        if (parentNode) {
+            parentNode.addChild(new Node(childName));
+        }
+    }
+
+    findNode(node, name) {
+        if (node.name === name) {
+            return node;
+        }
+        for (const child of node.connections) {
+            const result = this.findNode(child, name);
+            if (result) {
+                return result;
+            }
+        }
+        return null;
+    }
+
+    findNodeById(node, id) {
+        if (node.id === id) {
+            return node;
+        }
+        for (const child of node.connections) {
+            const result = this.findNodeById(child, id);
+            if (result) {
+                return result;
+            }
+        }
+        return null;
+    }
 }
 
-export { Tree, Node };
+function saveTree(tree) {
+    return JSON.stringify(tree);
+}
+
+function inflateTree(jsonTree) {
+    const obj = JSON.parse(jsonTree);
+    const tree = new WorkoutTree();
+    tree.root = obj.root;
+    return tree;
+}
+
+export { WorkoutTree, Node, saveTree, inflateTree };

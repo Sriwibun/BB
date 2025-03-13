@@ -1,10 +1,11 @@
 {
-    "name" : "Science app",
-    "short_name" : "Scapp",
+    "name" : "Workout Tracker app",
+    "short_name" : "Wack",
     "start_url" : "/",
     "display" : "standalone",
     "background_color" : "#f0f0f0",
     "theme_color" : "#333333"
+    
 
 
 }

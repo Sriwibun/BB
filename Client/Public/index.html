@@ -7,11 +7,11 @@
     <script>
         async function loadTemplate() {
             try {
-                const response = await fetch("../Templates/home.html");
+                const response = await fetch("/templates/home.html");
                 const html = await response.text();
                 document.body.innerHTML = html;
                 const script = document.createElement('script');
-                script.src = '/Views/home.js';
+                script.src = './views/home.js';
                 document.body.appendChild(script);
             } catch (error) {
                 console.error("Failed to load layout: ", error);

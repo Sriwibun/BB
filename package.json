@@ -1,12 +1,17 @@
 {
     "name": "my-node-app",
     "version": "1.0.0",
-    "description": "A simple Node.js application",
+    "description": "A workout tracker",
     "main": "server.mjs",
+    "type": "module",
     "scripts": {
-      "start": "node server.mjs"
+        "start": "node server.mjs"
     },
     "dependencies": {
-      "express": "^4.17.1"
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "ioredis": "^5.6.0",
+        "pg": "^8.14.0",
+        "redis-server": "^1.2.2"
     }
-  }
+}

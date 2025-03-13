@@ -4,12 +4,12 @@
 // cacheID => name of the list of cache elements to be stored
 const cacheID = "sienceV2";
 const contentToCache = [
-    "/index.html",
-    "/app.mjs",
-    "/icons/dragon.png",
-    "/icons/dragonLarge.png",
-    "/css/style.css",
-    "/API/knowledgeGraph"
+    // "/index.html",
+    // "/app.mjs",
+    // "/icons/dragon.png",
+    // "/icons/dragonLarge.png",
+    // "/css/style.css",
+    // "/API/knowledgeGraph"
 ];
 
 self.addEventListener('install', (e) => {
