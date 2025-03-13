@@ -1,12 +1,11 @@
-<h1>All Workouts</h1>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Workout Tracker</title>
-        <link href="CSS/style.css" rel="stylesheet">
+
+        <link href="/client/public/CSS/" rel="stylesheet">
     </head>
     <body>
         
@@ -16,7 +15,7 @@
             <button id="removeBtn" onclick="navigateTo('/remove')">Remove Workout</button>
         </nav>
         
-        <div id="app">
+        <div id="workoutList">
             <h2>Listing workouts...</h2>
         </div>
         <template id="workout-card-template">
@@ -26,10 +25,7 @@
             </div>
         </template>
         
-        <div id="workoutList"></div>
-        
-        <script src="/routes.js"></script>
-        <script src="/view/home.js"></script>
+        <script src="../views/home.js"></script>
 
 </body>
 </html>

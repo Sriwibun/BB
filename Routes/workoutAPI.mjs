@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../server/db.mjs"; // PostgreSQL connection
+import pool from "../server/db.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();

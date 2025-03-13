@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Tracker</title>
-    <script>
-        async function loadTemplate() {
-            try {
-                const response = await fetch("/templates/home.html");
-                const html = await response.text();
-                document.body.innerHTML = html;
-                const script = document.createElement('script');
-                script.src = './views/home.js';
-                document.body.appendChild(script);
-            } catch (error) {
-                console.error("Failed to load layout: ", error);
-            }
-        }
-
-        loadTemplate();
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Tracker</title>
+  <link rel="stylesheet" href="CSS/style.css">
 </head>
-<body></body>
+<body>
+  <script>
+    async function loadTemplate() {
+      try {
+            const response = await fetch("../templates/home.html");
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const html = await response.text();
+        document.body.innerHTML = html;
+
+        const scripts = document.body.querySelectorAll("script");
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement("script");
+
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      } catch (error) {
+        console.error("Failed to load template: ", error);
+        document.body.innerHTML = "<h2>Failed to load home page. Check console for details.</h2>";
+      }
+    }
+    loadTemplate();
+  </script>
+</body>
 </html>

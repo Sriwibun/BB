@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import log from '../modules/log.mjs';
 import workoutRouter from '../routes/workoutAPI.mjs';
-import treeRouter from '../routes/treeaPI.mjs';
+import treeRouter from '../routes/treeAPI.mjs';
 import pool from '../server/db.mjs';
 
 const server = express();
