@@ -16,26 +16,26 @@ server.use(express.json());
 server.use(log);
 server.use('/tree', treeRouter);
 server.use('/workouts', workoutRouter);
-server.use(express.static(path.join(__dirname, "../client/public")));
+server.use(express.static(path.join(__dirname, 'public')));
 
 server.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/public/index.html"));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 server.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/public/templates/home.html"));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'home.html'));
 });
 
 server.get('/add', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/public/templates/add.html"));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'add.html'));
 });
 
 server.get('/remove', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/public/templates/remove.html"));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'remove.html'));
 });
 
 server.get('/layout', (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/public/templates/layout.html"));
+    res.sendFile(path.join(__dirname, 'public', 'Templates', 'layout.html'));
 });
 
 server.use((req, res) => {
