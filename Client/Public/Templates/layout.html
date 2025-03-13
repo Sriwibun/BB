@@ -27,7 +27,7 @@
                     const app = document.getElementById('app');
                     app.innerHTML = '';
 
-                    fetch('/Templates/workout-card.html')
+                    fetch('../templates/workout-card.html')
                         .then(response => response.text())
                         .then(templateText => {
                             const template = document.createElement('template');
