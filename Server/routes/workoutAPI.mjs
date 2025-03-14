@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "./db.mjs";
+import pool from "../db.mjs";
 import dotenv from "dotenv";
 
 dotenv.config();

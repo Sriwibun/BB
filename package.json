@@ -14,7 +14,6 @@
         "pg": "^8.14.0",
         "redis-server": "^1.2.2"
     },
-    "devDependencies": {},
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Sriwibun/BB.git"
