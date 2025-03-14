@@ -3,6 +3,8 @@ async function navigateTo(route) {
     let url = route;
     if (route === '/') {
         url = '/index.html';
+    } else if(route === '/add') {
+        url = './template/add.html'; 
     }
 
     try {
@@ -11,18 +13,35 @@ async function navigateTo(route) {
             throw new Error(`Failed to fetch ${url}: ${response.status}`);
         }
         const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('#content');
-        if (content) {
-            document.querySelector('#content').innerHTML = content.innerHTML;
-        } else {
-            document.body.innerHTML = html;
-        }
+        document.body.innerHTML = html;
     } catch (error) {
         console.error('Error:', error);
-        document.querySelector('#content').innerHTML = '<h1>An error occurred</h1>';
+        document.body.innerHTML = '<h1>An error occurred</h1>';
     }
+}
+
+function addEventListeners() {
+    const addWorkoutButton = document.getElementById('addWorkout');
+    if (addWorkoutButton) {
+        addWorkoutButton.addEventListener('click', () => {
+            console.log('Add Workout button clicked');
+            navigateTo('/add');
+        });
+    } else {
+        console.log('Add Workout button not found');
+    }
+
+    const homeButton = document.getElementById('home');
+    if (homeButton) {
+        homeButton.addEventListener('click', () => {
+            console.log('Home button clicked');
+            navigateTo('/');
+        });
+    } else {
+        console.log('Home button not found');
+    }
+
+    
 }
 
 export { navigateTo };
