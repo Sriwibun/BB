@@ -2,7 +2,7 @@
     "name": "workout-tracker-app",
     "version": "1.0.0",
     "description": "A workout tracker",
-    "main": "server.mjs",
+    "main": "server/server.mjs",
     "type": "module",
     "scripts": {
         "start": "node server/server.mjs"

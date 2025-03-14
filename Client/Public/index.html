@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="public/style.css">
+    <link rel="stylesheet" href="style.css">
     <title>Workout Tracker</title>
     <nav id="navBar">
         <button id="home">Home</button>
@@ -21,7 +21,22 @@
         import {navigateTo} from './router.mjs';
 
         navigateTo('/');
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered!');
+                    })
+                    .catch(err => {
+                        console.log('Registration failed!');
+                        console.log(err);
+                    });
+            });
+        }
     <div id="workouts-container"></div>
+
+
     </script>
 </body>
 </html>

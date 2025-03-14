@@ -14,10 +14,10 @@ window.addEventListener("load", async () => {
     navigateTo(route);
     await fetchAndDisplayWorkouts();
 
-    setInterval(fetchUpdateWorkouts, 30000);
+    setInterval(fetchAndDisplayWorkouts, 30000);
 });
 
-async function fetchUpdateWorkouts() {
+async function fetchAndDisplayWorkouts() {
     try {
         const response = await fetch('/api/workouts', { cache: "no-store" });
         if (!response.ok) {

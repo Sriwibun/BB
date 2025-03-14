@@ -1,6 +1,3 @@
-document.getElementById('add-workout-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
     const name = document.getElementById('name').value;
     const duration = document.getElementById('duration').value;
     const category = document.getElementById('category').value;
@@ -25,4 +22,3 @@ document.getElementById('add-workout-form').addEventListener('submit', async (ev
         console.error('Error adding workout:', error);
         alert('Error adding workout. Please try again.');
     }
-});
