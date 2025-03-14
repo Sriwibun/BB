@@ -1,11 +1,11 @@
 {
-    "name": "my-node-app",
+    "name": "workout-tracker-app",
     "version": "1.0.0",
     "description": "A workout tracker",
     "main": "server.mjs",
     "type": "module",
     "scripts": {
-        "start": "node server.mjs"
+        "start": "node server/server.mjs"
     },
     "dependencies": {
         "dotenv": "^16.4.7",
