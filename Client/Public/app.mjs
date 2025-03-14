@@ -24,7 +24,6 @@ window.addEventListener("load", async () => {
     } catch (error) {
         const container = document.getElementById('workouts-container');
         console.error('Error fetching workouts:', error);
-        <p>There is no workouts here...track now!</p>
         if (container) {
             container.innerHTML = '<h2>Error loading workouts</h2>';
         }
