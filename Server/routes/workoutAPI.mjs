@@ -1,10 +1,9 @@
-// filepath: g:\Multimedie\MM-207 Applikasjonsutvikling\workout-tracker\server\routes\workoutAPI.mjs
 import express from 'express';
 import pool from '../db.mjs';
 
 const router = express.Router();
 
-// GET /workout - Get all workouts
+// GET /api/workouts - Get all workouts
 router.get('/', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM workouts');
@@ -15,7 +14,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET /workout/:id - Get a specific workout by ID
+// GET /api/workouts/:id - Get a specific workout by ID
 router.get('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     try {
@@ -31,7 +30,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST /workout - Add a new workout
+// POST /api/workouts - Add a new workout
 router.post('/', async (req, res) => {
     const { name, duration } = req.body;
     try {
@@ -46,7 +45,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT /workout/:id - Update a workout by ID
+// PUT /api/workouts/:id - Update a workout by ID
 router.put('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     const { name, duration } = req.body;
@@ -66,7 +65,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE /workout/:id - Delete a workout by ID
+// DELETE /api/workouts/:id - Delete a workout by ID
 router.delete('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     try {

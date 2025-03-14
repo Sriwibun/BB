@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import dotenv from 'dotenv';
-import workoutRouter from './routes/workoutAPI.mjs';
+import router from './routes/workoutAPI.mjs';
 import pool from './db.mjs';
 
 dotenv.config();
@@ -21,7 +21,7 @@ server.use(express.json());
 
 server.use(express.static(path.join(__dirname, '../client/public')));
 
-server.use("/workout", workoutRouter);
+server.use("/api/workouts", router);
 // server.use(updateSession);
 
 pool.connect((err, client, release) => {

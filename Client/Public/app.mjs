@@ -22,13 +22,21 @@ window.addEventListener("load", async () => {
         const workouts = await response.json();
         displayWorkouts(workouts);
     } catch (error) {
+        const container = document.getElementById('workouts-container');
         console.error('Error fetching workouts:', error);
-        document.getElementById('workouts-container').innerHTML = '<h2>Error loading workouts</h2>';
+        <p>There is no workouts here...track now!</p>
+        if (container) {
+            container.innerHTML = '<h2>Error loading workouts</h2>';
+        }
     }
 });
 
 function displayWorkouts(workouts) {
     const container = document.getElementById('workouts-container');
+    if (!container) {
+        console.error('Container element not found');
+        return;
+    }
     container.innerHTML = ''; // Clear existing content
 
     workouts.forEach(workout => {
@@ -36,8 +44,8 @@ function displayWorkouts(workouts) {
         workoutElement.className = 'workout';
         workoutElement.innerHTML = `
             <h2>${workout.name}</h2>
-            <p>Duration: ${workout.duration} minutes</p><br>
-            <p>Category: ${workout.category}</p><br>
+            <p>Duration: ${workout.duration} minutes</p>
+            <p>Category: ${workout.category}</p>
             <p>${workout.description}</p>
         `;
         container.appendChild(workoutElement);
