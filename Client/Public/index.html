@@ -1,39 +1,12 @@
-<!DOCTYPE html>
+git <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workout Tracker</title>
-  <link rel="stylesheet" href="CSS/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
 </head>
 <body>
-  <script>
-    async function loadTemplate() {
-      try {
-            const response = await fetch("../templates/home.html");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const html = await response.text();
-        document.body.innerHTML = html;
-
-        const scripts = document.body.querySelectorAll("script");
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement("script");
-
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-      } catch (error) {
-        console.error("Failed to load template: ", error);
-        document.body.innerHTML = "<h2>Failed to load home page. Check console for details.</h2>";
-      }
-    }
-    loadTemplate();
-  </script>
+    <h1>All workouts</h1>
+    <script src="app.mjs" type="module"></script>
 </body>
 </html>

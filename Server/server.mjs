@@ -3,11 +3,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import log from '../modules/log.mjs';
 import workoutRouter from '../server/routes/workoutAPI.mjs';
-import treeRouter from '../server/routes/treeAPI.mjs';
 // import pool from './db.mjs';
 
 const server = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 9000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -18,7 +17,6 @@ server.use(log);
 server.use(express.static(path.join(__dirname, '../client/public')));
 
 server.use('/api/workouts', workoutRouter);
-server.use('/api/tree', treeRouter);
 
 server.get("/test", (req, res) => {
     res.send("server is running");
