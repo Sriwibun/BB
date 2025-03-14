@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <title>Workout Tracker</title>
     <nav id="navBar">
         <button id="home">Home</button>
@@ -16,5 +18,10 @@
     <h1>All workouts</h1>
     <div id="workouts-container"></div>
     <script src="app.mjs" type="module"></script>
+    <script type="module">
+        import {navigateTo} from './router.mjs';
+
+        navigateTo('/');
+    </script>
 </body>
 </html>

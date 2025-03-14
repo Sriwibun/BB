@@ -21,8 +21,17 @@ server.use(express.json());
 
 server.use(express.static(path.join(__dirname, '../client/public')));
 
+
+server.use((req, res, next) => {
+    if (req.url.endsWith('.mjs')) {
+        res.type('text/javascript');
+    }
+    next();
+});
+
 server.use("/api/workouts", router);
 // server.use(updateSession);
+server.get('/favicon.ico', (req, res) => res.status(204).end());
 
 pool.connect((err, client, release) => {
     if (err) {
