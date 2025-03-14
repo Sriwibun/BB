@@ -13,6 +13,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.post('/', async (req, res) => {
+    const { name, duration, category, description } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO workouts (name, duration, category, description) VALUES ($1, $2, $3, $4) RETURNING *',
+            [name, duration, category, description]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('Error adding workout:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 router.get('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     try {

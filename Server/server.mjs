@@ -19,19 +19,20 @@ server.use(express.json());
 // server.use(logger);
 // server.use(startSession);
 
-server.use(express.static(path.join(__dirname, '../client/public')));
+server.use(express.static(path.join(__dirname, 'client/public')));
 
 
-server.use((req, res, next) => {
-    if (req.url.endsWith('.mjs')) {
-        res.type('text/javascript');
-    }
+server.use("*.mjs", (req, res, next) => {
+   req.type('application/javascript');
+    next();
+});
+
+server.get('/style.css', (req, res, next) => {
+    res.type('text/css');
     next();
 });
 
 server.use("/api/workouts", router);
-// server.use(updateSession);
-server.get('/favicon.ico', (req, res) => res.status(204).end());
 
 pool.connect((err, client, release) => {
     if (err) {

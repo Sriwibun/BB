@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public/style.css">
     <title>Workout Tracker</title>
     <nav id="navBar">
         <button id="home">Home</button>
@@ -16,12 +16,12 @@
 <body>
     <title>Workout Tracker</title>
     <h1>All workouts</h1>
-    <div id="workouts-container"></div>
     <script src="app.mjs" type="module"></script>
     <script type="module">
         import {navigateTo} from './router.mjs';
 
         navigateTo('/');
+    <div id="workouts-container"></div>
     </script>
 </body>
 </html>

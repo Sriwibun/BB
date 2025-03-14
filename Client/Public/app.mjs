@@ -12,23 +12,27 @@ if ("serviceWorker" in navigator) {
 window.addEventListener("load", async () => {
     const route = window.location.pathname;
     navigateTo(route);
+    await fetchAndDisplayWorkouts();
 
-    // Fetch and display workouts
+    setInterval(fetchUpdateWorkouts, 30000);
+});
+
+async function fetchUpdateWorkouts() {
     try {
-        const response = await fetch('/api/workouts');
+        const response = await fetch('/api/workouts', { cache: "no-store" });
         if (!response.ok) {
             throw new Error(`Failed to fetch workouts: ${response.status}`);
         }
         const workouts = await response.json();
         displayWorkouts(workouts);
     } catch (error) {
-        const container = document.getElementById('workouts-container');
-        console.error('Error fetching workouts:', error);
+        console.error("Error fetching workouts:", error);
+        const container = document.getElementById("workouts-container");
         if (container) {
             container.innerHTML = '<h2>Error loading workouts</h2>';
         }
     }
-});
+}
 
 function displayWorkouts(workouts) {
     const container = document.getElementById('workouts-container');

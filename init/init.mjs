@@ -1,6 +1,5 @@
 
 import { console } from "inspector";
-import { Node, Tree, saveTree } from "../data/tree.mjs"
 import fs from "fs/promises"
 
 //#region DUMMY data --------------------
@@ -14,4 +13,4 @@ console.log(treeData);
 
 
 // Start server ----------
-const server = await import("../Server/server.mjs")
+const server = await import("../server/server.mjs")
