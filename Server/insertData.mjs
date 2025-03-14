@@ -6,7 +6,7 @@ async function insertData() {
         VALUES ($1, $2, $3, $4)
         RETURNING *;
     `;
-    const values = ['Running', 30, 'Cardio', 'A great cardio workout']; // Example data
+    const values = ['Weightlifting', 30, 'Strength', 'A great workout!']; // Example data
 
     try {
         const result = await pool.query(query, values);

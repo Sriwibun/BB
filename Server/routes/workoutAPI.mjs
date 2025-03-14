@@ -3,7 +3,6 @@ import pool from '../db.mjs';
 
 const router = express.Router();
 
-// GET /api/workouts - Get all workouts
 router.get('/', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM workouts');
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET /api/workouts/:id - Get a specific workout by ID
 router.get('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     try {
@@ -30,13 +28,12 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST /api/workouts - Add a new workout
 router.post('/', async (req, res) => {
-    const { name, duration } = req.body;
+    const { name, duration, category, description } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO workouts (name, duration) VALUES ($1, $2) RETURNING *',
-            [name, duration]
+            'INSERT INTO workouts (name, duration, category, description) VALUES ($1, $2, $3, $4) RETURNING *',
+            [name, duration, category, description]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -45,7 +42,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT /api/workouts/:id - Update a workout by ID
 router.put('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     const { name, duration } = req.body;
@@ -65,7 +61,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE /api/workouts/:id - Delete a workout by ID
 router.delete('/:id', async (req, res) => {
     const workoutId = parseInt(req.params.id, 10);
     try {

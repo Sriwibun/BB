@@ -37,34 +37,36 @@ self.addEventListener('activate', (e) => {
             })
         );
     })());
+    self.clients.claim();
 });
 
-// Fetch event - serve cached files and update cache with new versions
+// Fetch event - update API responses dynamically
 self.addEventListener('fetch', (e) => {
-    // Cache http and https only, skip unsupported chrome-extension:// and file://...
-    if (!(
-        e.request.url.startsWith('http:') || e.request.url.startsWith('https:')
-    )) {
+    if (!e.request.url.startsWith('http:') && !e.request.url.startsWith('https:')) {
         return;
     }
 
     e.respondWith((async () => {
         const cache = await caches.open(cacheID);
-        const cachedResponse = await caches.match(e.request);
-        if (cachedResponse) {
-            console.log(`[Service Worker] Serving cached resource: ${e.request.url}`);
-            return cachedResponse;
+
+        // If request is for workouts API, fetch fresh data
+        if (e.request.url.includes("/api/workouts")) {
+            try {
+                const networkResponse = await fetch(e.request);
+                console.log(`[Service Worker] Updating cache for: ${e.request.url}`);
+                cache.put(e.request, networkResponse.clone()); // Update cache
+                return networkResponse;
+            } catch (error) {
+                console.error(`[Service Worker] Fetch failed; serving cached API response.`, error);
+                return await cache.match(e.request) || new Response("Offline", { status: 503 });
+            }
         }
 
-        try {
-            const networkResponse = await fetch(e.request);
-            console.log(`[Service Worker] Caching new resource: ${e.request.url}`);
+        // Serve cached files first for static content
+        const cachedResponse = await cache.match(e.request);
+        return cachedResponse || fetch(e.request).then((networkResponse) => {
             cache.put(e.request, networkResponse.clone());
             return networkResponse;
-        } catch (error) {
-            console.error(`[Service Worker] Fetch failed; returning offline page instead.`, error);
-            const offlinePage = await caches.match('/index.html');
-            return offlinePage;
-        }
+        });
     })());
 });

@@ -36,7 +36,7 @@ function displayWorkouts(workouts) {
         console.error('Container element not found');
         return;
     }
-    container.innerHTML = ''; // Clear existing content
+    container.innerHTML = '';
 
     workouts.forEach(workout => {
         const workoutElement = document.createElement('div');
